@@ -1,3 +1,4 @@
+from django.db.models import Count
 from rest_framework.views import  APIView
 from rest_framework import status
 from rest_framework.response import Response
@@ -11,7 +12,11 @@ class APIPrototype(APIView):
     queryset = ''
     order_by = ''
 
+    def on_query_set(self):
+        pass
+
     def list(self):
+        self.on_query_set()
         serializer = self.SerializerClass(self.queryset, many=self.many)
         if len(self.order_by):
             list = sorted(
@@ -40,3 +45,17 @@ class CartList (APIPrototype):
     SerializerClass  = CartSerializer
     queryset         = Cart.objects
     order_by          = ''
+
+class CartListUser (APIPrototype):
+
+    SerializerClass  = CartSerializer
+    order_by          = ''
+
+    def on_query_set(self):
+        ndata=[]
+        data = Cart.objects.all()
+        for el in data:
+            lenght=len(el.dishs.annotate(cart_count=Count('cart_id')))
+            if lenght>0:
+                ndata.append(el)
+        self.queryset=ndata
