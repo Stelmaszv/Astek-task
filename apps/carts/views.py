@@ -48,7 +48,6 @@ class CartList (APIPrototype):
 class CartListUser (APIPrototype):
 
     SerializerClass  = CartSerializer
-    order_by          = ''
 
     def on_query_set(self):
         ndata=[]
@@ -64,3 +63,9 @@ class CartListUserOrderBy (CartListUser):
     def get(self, request, *args, **kwargs):
         self.order_by=self.kwargs.get("orderby")
         return self.api_get(request)
+
+class CartListUserSearch (CartListUser):
+
+    def on_query_set(self):
+        self.queryset = Cart.objects.filter(Cart__name=self.kwargs.get("name"))
+
