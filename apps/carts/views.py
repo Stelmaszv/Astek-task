@@ -39,4 +39,4 @@ class CartList (APIPrototype):
 
     SerializerClass  = CartSerializer
     queryset          = Cart.objects
-    order_by          = 'avg_rating'
+    order_by          = ''
