@@ -6,7 +6,7 @@ from .serializers import CartSerializer
 from .models import Cart
 
 class APIPrototype(APIView):
-
+    reverse         = True
     SerializerClass = None
     many     = True
     queryset = ''
@@ -22,7 +22,7 @@ class APIPrototype(APIView):
             list = sorted(
                 serializer.data,
                 key=lambda tup: tup[self.order_by],
-                reverse=False)
+                reverse=self.reverse)
         else:
             list= serializer.data
         return list
