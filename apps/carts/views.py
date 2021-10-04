@@ -36,6 +36,7 @@ class APIPrototype(APIView):
         return self.api_get(request)
 
 class CartList (APIPrototype):
+
     SerializerClass  = CartSerializer
     queryset          = Cart.objects
     order_by          = 'avg_rating'
