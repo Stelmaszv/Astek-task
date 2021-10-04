@@ -60,4 +60,7 @@ class CartListUser (APIPrototype):
         self.queryset=ndata
 
 class CartListUserOrderBy (CartListUser):
-    order_by = 'count_dishs'
+
+    def get(self, request, *args, **kwargs):
+        self.order_by=self.kwargs.get("orderby")
+        return self.api_get(request)
