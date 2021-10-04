@@ -1,12 +1,19 @@
 from django.db import models
 
+import datetime
+
+
 class Cart(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200,unique=True)
     description = models.TextField(null=True)
-    added = models.DateTimeField(auto_now=True)
+    added = models.DateTimeField(auto_now_add=True,blank=False)
     last_update=models.DateTimeField(auto_now=True)
     dishs = models.ManyToManyField(to='carts.Dish', related_name='Dish',blank=True)
+
+    def save(self, *args, **kwargs):
+        self.last_update=datetime.datetime.now()
+        super(Cart, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
