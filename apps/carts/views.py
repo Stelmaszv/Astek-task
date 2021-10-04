@@ -38,5 +38,5 @@ class APIPrototype(APIView):
 class CartList (APIPrototype):
 
     SerializerClass  = CartSerializer
-    queryset          = Cart.objects
+    queryset         = Cart.objects
     order_by          = ''
