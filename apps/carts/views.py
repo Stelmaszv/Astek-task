@@ -22,7 +22,7 @@ class APIPrototype(APIView):
             list = sorted(
                 serializer.data,
                 key=lambda tup: tup[self.order_by],
-                reverse=True)
+                reverse=False)
         else:
             list= serializer.data
         return list
@@ -44,7 +44,6 @@ class CartList (APIPrototype):
 
     SerializerClass  = CartSerializer
     queryset         = Cart.objects
-    order_by          = ''
 
 class CartListUser (APIPrototype):
 
@@ -59,3 +58,6 @@ class CartListUser (APIPrototype):
             if lenght>0:
                 ndata.append(el)
         self.queryset=ndata
+
+class CartListUserOrderBy (CartListUser):
+    order_by = 'count_dishs'
