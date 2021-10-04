@@ -6,7 +6,7 @@ class Cart(models.Model):
     description = models.TextField(null=True)
     added = models.DateTimeField(auto_now=True)
     last_update=models.DateTimeField(auto_now=True)
-    dishs = models.ManyToManyField(to='carts.Dish', related_name='Dish')
+    dishs = models.ManyToManyField(to='carts.Dish', related_name='Dish',blank=True)
 
     def __str__(self):
         return self.name
