@@ -4,6 +4,9 @@ from rest_framework import status
 from rest_framework.response import Response
 from .serializers import CartSerializer
 from .models import Cart
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
+from apps.carts.auth import Authentication
 
 class APIPrototype(APIView):
     reverse         = True
@@ -44,6 +47,8 @@ class CartList (APIPrototype):
 
     SerializerClass  = CartSerializer
     queryset         = Cart.objects
+    authentication_classes = (SessionAuthentication, Authentication,)
+    permission_classes = [IsAuthenticated]
 
 class CartListUser (APIPrototype):
 
