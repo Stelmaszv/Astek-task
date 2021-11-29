@@ -1,7 +1,5 @@
 from django.db import models
-from django.core.mail import send_mail
 import datetime
-
 
 class Cart(models.Model):
     id = models.AutoField(primary_key=True)
@@ -17,9 +15,7 @@ class Cart(models.Model):
 
     def __str__(self):
         return self.name
-
-
-
+##new
 class Dish(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True)
